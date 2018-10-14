@@ -79,8 +79,8 @@ def load_data():
 
     train_data = np.array(train_data)
 
-    train_data = pad_sequences(train_data, maxlen = max_len, padding='post') # ADDED 
-    test_data = pad_sequences(test_data, maxlen= max_len, padding='post') # added
+    train_data = pad_sequences(train_data, maxlen = max_len, padding='post') 
+    test_data = pad_sequences(test_data, maxlen= max_len, padding='post') 
 
     np.save(savePath + r'\\' + dataSet + 'train_data',train_data)
     np.save(savePath + r'\\' + dataSet + 'train_labels',train_labels)
@@ -128,8 +128,8 @@ if not os.path.exists(savePath + '\\' + name + '.h5'):
 
     model.save(savePath + '\\' + name+ ".h5")
     plot_model(model, to_file=name+'.png', show_shapes=True, show_layer_names=True)
-    #pyplot.plot(history.history['accuracy']) #added***
-    #pyplot.savefig(savePath + '\\' + name + '.png')#pyplot.show()#added***
+    #pyplot.plot(history.history['accuracy']) 
+    #pyplot.savefig(savePath + '\\' + name + '.png')#pyplot.show()
     result = model.predict(test_data)
     np.save(savePath+r'\\' + name + 'result',result)
 
