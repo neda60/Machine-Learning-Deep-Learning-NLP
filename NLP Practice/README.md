@@ -97,6 +97,7 @@ I performed similar steps for fitting a GRU model. The LSTM model has one GRU an
 
 I trained the model for 10 epochs with a batch size of 16. I tuned the hyperparameters briefly using the validation dataset and performed a final evaluation on the same 20% held out test dataset as the RF model. The Accuracy, F1-measure, Precision and Recall also calculated. However, the accuracy is ~ 14% which is really low and the model has to be refined. I did not tune the GRU model. Figure 6 shows the summary of GRU model.
 
+![networ](https://user-images.githubusercontent.com/14133335/68433077-b78c7300-0183-11ea-80d7-94ea5f27b410.JPG)
 
 
 
