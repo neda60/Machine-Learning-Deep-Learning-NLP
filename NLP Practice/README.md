@@ -59,20 +59,7 @@ Labels | Count | Percentage
    0   | 3,464 |    87%    
    1   | 535   |    13%
 
-'''mermaid
-graph LR
-
-A(Import comments from train.txt) -->B(Join texts and clean)
-
-'''
-
-```mermaid
-graph LR
-A[Hard edge] -->B(Round edge)
-    B --> C{Decision}
-    C -->|One| D[Result one]
-    C -->|Two| E[Result two]
-```
+![pipe](https://user-images.githubusercontent.com/14133335/68421874-18f51780-016d-11ea-80b0-789e5328ee40.png)
 
     Figure 1. The pipeline for sentence classification with RF
 In order to construct a BOW model based on the word counts, I used the CountVectorizer class implemented in scikit-learn. To down-weight frequently occurring words that are less informative for the classification I employed the term frequency-inverse document frequency (tf-idf) method. To this end, I used the TfidfTransformer class from scikit-learn which takes the raw term frequencies from the CountVectorizer class as input and transforms them into tf-idfs. The transformed samples were then split into training and test datasets. I held out 20% of the samples as a test dataset. These samples were not used in training the RF classifier.
@@ -107,7 +94,6 @@ In this practice I did not implement hyper parameter tunning or perform k-fold c
 I performed similar steps for fitting a GRU model. The LSTM model has one GRU and a Dense layers.
 
 
-Figure 4. The pipeline for sentence classification with multiscale GRU
 I trained the model for 10 epochs with a batch size of 16. I tuned the hyperparameters briefly using the validation dataset and performed a final evaluation on the same 20% held out test dataset as the RF model. The Accuracy, F1-measure, Precision and Recall also calculated. However, the accuracy is ~ 14% which is really low and the model has to be refined. I did not tune the GRU model. Figure 6 shows the summary of GRU model.
 _________________________________________________________________
 Layer (type)                 Output Shape              Param #   
