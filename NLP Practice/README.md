@@ -68,14 +68,15 @@ In order to construct a BOW model based on the word counts, I used the CountVect
 Figure 2. Characterization of AUC vs the number of trees. The model performance saturates at 100 trees.
 I used the RandomForestClassifier from scikit-learn to train the RF models. As shown in figure 2, I explored four different tree numbers for all tree training portions and noticed that the model performance plateaued at 100 trees. I selected this tree number for model evaluation. I run the models on three undersampled datasets and predict the final label by voting. The RF model achieves an area under the curve (AUC) of 0.98 (Figure 3) and F1 of 0.98 (evaluated on 1/3 label 0s and all label 1s).
  
+ 
+ ![rf](https://user-images.githubusercontent.com/14133335/68422405-2b238580-016e-11ea-999a-4a28e6e59933.png)
+
 Figure 3. ROC curve for the RF classifier with 100 trees on the test data that was not seen by the model
 
 
 2.  Sentence classification with multiscale CNNs 
 Similarly to the RF model, the pipeline for the CNN model started with importing, extracting and cleaning the sentences. The labeling of the sentences for each author was also identical to the one in the previous method. Here, instead of using the BOW and tf-idf to transform sentences into feature vectors, I used the built-in tensorflow.keras utility functions to tokenize, pad and embed the sentences. This will in effect transform each sentence into a vector of vectors or a n×m matrix where n is the max length of the sentences and m is the embedding size. 
 
-
-Figure 4. The pipeline for sentence classification with multiscale CNNs
 
 I employed a three-channel multiscale CNN approach where each channel has a different kernel size in order to capture different length sentence sub-structures: 4-grams, 6-grams and 8-grams. Each channel consists of 32 filters and a MaxPool layer. The output of the MaxPool is flattened and concatenated across the three channels. The concatenated outputs of the tree channels is then fed to a dense classifier which outputs the class probabilities for the sentences. 
 I trained the model on virtual machine with 12 CPUs and 24 GBs of RAM. I trained the model for 10 epochs with a batch size of 16. I tuned the hyperparameters briefly using the validation dataset and performed a final evaluation on the same 20% held out test dataset as the RF model.
@@ -95,16 +96,8 @@ I performed similar steps for fitting a GRU model. The LSTM model has one GRU an
 
 
 I trained the model for 10 epochs with a batch size of 16. I tuned the hyperparameters briefly using the validation dataset and performed a final evaluation on the same 20% held out test dataset as the RF model. The Accuracy, F1-measure, Precision and Recall also calculated. However, the accuracy is ~ 14% which is really low and the model has to be refined. I did not tune the GRU model. Figure 6 shows the summary of GRU model.
-_________________________________________________________________
-Layer (type)                 Output Shape              Param #   
-=================================================================
-embedding_6 (Embedding)      (None, 190, 100)          616800    
-_________________________________________________________________
-gru_3 (GRU)                  (None, 100)               60300     
-_________________________________________________________________
-dense_9 (Dense)              (None, 8)                 808       
-_________________________________________________________________
-dense_10 (Dense)             (None, 1)                 9         
-=================================================================
+
+
+
 
 Figure 6. GRU Model
